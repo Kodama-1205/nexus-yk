@@ -1,27 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/*
+  サイト全体の土台となる CSS 変数です。
+  Phase 1 は「青系グラデーションのダーク基調」を前提にします。
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* 背景の基調（ダークネイビー寄り） */
+  --nyk-bg-0: #020617;
+  --nyk-bg-1: #031b3a;
+  --nyk-bg-2: #042f4a;
+
+  /* 前景（本文） */
+  --nyk-fg: #e2e8f0;
+
+  /* 光彩演出（ヒーロー周辺の装飾色） */
+  --nyk-glow-cyan: rgba(34, 211, 238, 0.35);
+  --nyk-glow-sky: rgba(56, 189, 248, 0.28);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: dark;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  font-family: 'Noto Sans JP', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif;
+  color: var(--nyk-fg);
+  background-color: var(--nyk-bg-0);
+  background-image: radial-gradient(1200px circle at 20% 0%, var(--nyk-glow-sky), transparent 55%),
+    radial-gradient(900px circle at 80% 10%, var(--nyk-glow-cyan), transparent 50%),
+    linear-gradient(180deg, var(--nyk-bg-2), var(--nyk-bg-0) 55%, #00040a);
+  background-attachment: fixed;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
   }
 }
