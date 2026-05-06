@@ -9,13 +9,14 @@ import { AppCard } from '@/components/AppCard';
 
 type AppsCatalogClientProps = {
   apps: AppItem[];
+  isPro?: boolean;
 };
 
 /**
  * アプリ一覧のカテゴリフィルタ付きカタログです（クライアントコンポーネント）。
  * フィルタ状態は URL に依存せず、初期表示の体感速度を優先しています。
  */
-export function AppsCatalogClient({ apps }: AppsCatalogClientProps) {
+export function AppsCatalogClient({ apps, isPro = false }: AppsCatalogClientProps) {
   const [category, setCategory] = useState<AppCategory | 'すべて'>('すべて');
 
   const filtered = useMemo(() => {
@@ -66,7 +67,7 @@ export function AppsCatalogClient({ apps }: AppsCatalogClientProps) {
       ) : (
         <div className="mt-10 grid grid-cols-1 gap-5 lg:gap-6">
           {filtered.map((app) => (
-            <AppCard key={app.slug} app={app} />
+            <AppCard key={app.slug} app={app} isPro={isPro} />
           ))}
         </div>
       )}

@@ -8,7 +8,7 @@ import { HeaderAuthButton } from '@/components/HeaderAuthButton';
 const navItems = [
   { href: '/', label: 'Home' },
   { href: '/apps', label: 'Apps' },
-  { href: '/marketplace', label: 'Marketplace' },
+  { href: '/dify', label: 'Dify' },
 ] as const;
 
 /**

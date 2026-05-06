@@ -6,7 +6,7 @@
 
 import { createAdminClient } from '@/lib/supabase/admin';
 
-import type { AppCategory, AppItem, AppStatus } from './types';
+import type { AccessTier, AppCategory, AppItem, AppStatus } from './types';
 
 /** DB の行型（snake_case） */
 type AppRow = {
@@ -22,6 +22,7 @@ type AppRow = {
   status: string;
   published_at: string | null;
   created_at: string;
+  access_tier: string;
 };
 
 /** DB 行 → AppItem（camelCase）変換 */
@@ -38,6 +39,7 @@ function rowToAppItem(row: AppRow): AppItem {
     screenshot: row.screenshot,
     status: row.status as AppStatus,
     publishedAt: row.published_at ?? row.created_at,
+    accessTier: (row.access_tier ?? 'free') as AccessTier,
   };
 }
 

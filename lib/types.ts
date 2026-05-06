@@ -1,6 +1,5 @@
 /**
- * Nexus-YK（Phase 1）で扱うアプリ情報の型定義です。
- * Phase 2 以降で Supabase 等に移行する際も、この型を境界として利用できるようにします。
+ * Nexus-YK で扱うデータ型定義です。
  */
 
 /** アプリのカテゴリ（一覧フィルタやバッジ表示に使用） */
@@ -14,6 +13,9 @@ export type AppCategory =
 /** 公開状態（バッジ表示・運用上の区別に使用） */
 export type AppStatus = '公開' | 'ベータ' | '準備中';
 
+/** アクセス権限（free: 誰でも利用可 / pro: Proプランのみ） */
+export type AccessTier = 'free' | 'pro';
+
 /** 一覧フィルタに使用するカテゴリの固定リスト（URL クエリ検証にも利用） */
 export const APP_CATEGORIES: AppCategory[] = [
   'AIワークフロー',
@@ -23,7 +25,7 @@ export const APP_CATEGORIES: AppCategory[] = [
   'その他',
 ];
 
-/** 1件分のアプリ情報（静的データ／将来のDB行の両方に対応） */
+/** 1件分のアプリ情報 */
 export interface AppItem {
   /** URL 用の一意な識別子（英小文字・ハイフン推奨） */
   slug: string;
@@ -41,10 +43,36 @@ export interface AppItem {
   liveUrl: string | null;
   /** GitHub リポジトリ URL（無い場合は null） */
   githubUrl: string | null;
-  /** `public/` 配下をルートから見たスクリーンショットパス（例: `/apps/foo.svg`） */
+  /** `public/` 配下をルートから見たスクリーンショットパス */
   screenshot: string;
   /** 公開状態 */
   status: AppStatus;
-  /** 公開日時（ISO8601）。正確な日付が不明な場合はデータ側で TODO コメントを残します */
+  /** 公開日時（ISO8601） */
   publishedAt: string;
+  /** アクセス権限（free: 誰でも / pro: Proプランのみ） */
+  accessTier: AccessTier;
+}
+
+/** 1件分の Dify ファイル情報 */
+export interface DifyItem {
+  /** DB の uuid */
+  id: string;
+  /** URL 用の一意な識別子 */
+  slug: string;
+  /** 表示タイトル */
+  title: string;
+  /** 説明文 */
+  description: string;
+  /** カテゴリ（例: 'ワークフロー', 'チャットボット'） */
+  category: string;
+  /** Supabase Storage のファイルパス */
+  filePath: string;
+  /** サムネイル画像パス（無い場合は null） */
+  thumbnailPath: string | null;
+  /** アクセス権限 */
+  accessTier: AccessTier;
+  /** 公開済みフラグ */
+  isPublished: boolean;
+  /** 作成日時（ISO8601） */
+  createdAt: string;
 }
