@@ -39,7 +39,7 @@ export function AppCard({ app, isPro = false }: AppCardProps) {
             src={app.screenshot}
             alt={`${app.name} のスクリーンショット（プレースホルダ）`}
             fill
-            className="object-cover"
+            className="object-cover object-left"
             sizes="(min-width: 640px) 176px, 100vw"
             unoptimized
             priority={false}
