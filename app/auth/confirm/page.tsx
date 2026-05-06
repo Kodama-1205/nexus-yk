@@ -7,7 +7,7 @@ import { createClient } from '@/lib/supabase/client';
 
 /**
  * Magic Link のクライアントサイド認証処理ページです。
- * URL の hash fragment（implicit flow）と code（PKCE flow）両方に対応します。
+ * implicit flow（URL hash）・PKCE flow（code）・token_hash の全パターンに対応します。
  */
 export default function AuthConfirmPage() {
   const router = useRouter();
@@ -16,52 +16,64 @@ export default function AuthConfirmPage() {
   useEffect(() => {
     const supabase = createClient();
 
-    // hash fragment の場合は onAuthStateChange で session を検知
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    async function handleAuth() {
+      // ① URL hash fragment（implicit flow）: #access_token=...&refresh_token=...
+      const hash = window.location.hash;
+      if (hash && hash.includes('access_token')) {
+        const params = new URLSearchParams(hash.substring(1));
+        const access_token = params.get('access_token');
+        const refresh_token = params.get('refresh_token');
+
+        if (access_token && refresh_token) {
+          const { error } = await supabase.auth.setSession({ access_token, refresh_token });
+          if (!error) {
+            router.replace('/account');
+            return;
+          }
+        }
+      }
+
+      // ② PKCE flow: ?code=...（ブラウザクライアントで処理。サーバーへのリダイレクト不可）
+      const url = new URL(window.location.href);
+      const code = url.searchParams.get('code');
+      if (code) {
+        const { error } = await supabase.auth.exchangeCodeForSession(code);
+        if (!error) {
+          router.replace('/account');
+          return;
+        }
+        setMessage('認証に失敗しました。もう一度お試しください。');
+        setTimeout(() => router.replace('/auth/login'), 2000);
+        return;
+      }
+
+      // ③ token_hash flow: ?token_hash=...&type=...
+      const token_hash = url.searchParams.get('token_hash');
+      const type = url.searchParams.get('type');
+      if (token_hash && type) {
+        const { error } = await supabase.auth.verifyOtp({
+          token_hash,
+          type: type as 'email' | 'magiclink' | 'recovery' | 'invite',
+        });
+        if (!error) {
+          router.replace('/account');
+          return;
+        }
+      }
+
+      // ④ すでにセッションがある場合
+      const { data: { session } } = await supabase.auth.getSession();
       if (session) {
         router.replace('/account');
         return;
       }
-    });
 
-    // code パラメータ（PKCE）の場合はサーバー側の /auth/callback に処理を委譲
-    const url = new URL(window.location.href);
-    const code = url.searchParams.get('code');
-    if (code) {
-      // code はそのまま /auth/callback に渡す
-      const next = url.searchParams.get('next') ?? '/account';
-      router.replace(`/auth/callback?code=${code}&next=${encodeURIComponent(next)}`);
-      return;
+      // どれも該当しない → エラー
+      setMessage('認証に失敗しました。もう一度お試しください。');
+      setTimeout(() => router.replace('/auth/login'), 2000);
     }
 
-    // token_hash の場合（OTP 確認）
-    const token_hash = url.searchParams.get('token_hash');
-    const type = url.searchParams.get('type');
-    if (token_hash && type) {
-      supabase.auth
-        .verifyOtp({ token_hash, type: type as 'email' | 'magiclink' | 'recovery' | 'invite' })
-        .then(({ error }) => {
-          if (error) {
-            setMessage('認証に失敗しました。もう一度お試しください。');
-            setTimeout(() => router.replace('/auth/login?error=callback_failed'), 2000);
-          }
-          // 成功時は onAuthStateChange が発火して /account にリダイレクト
-        });
-      return;
-    }
-
-    // どれも該当しない場合は少し待って session を確認
-    setTimeout(async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        router.replace('/account');
-      } else {
-        setMessage('認証に失敗しました。もう一度お試しください。');
-        setTimeout(() => router.replace('/auth/login?error=callback_failed'), 2000);
-      }
-    }, 1500);
-
-    return () => subscription.unsubscribe();
+    handleAuth();
   }, [router]);
 
   return (
