@@ -1,16 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 import { createClient } from '@/lib/supabase/client';
 
 /**
  * Magic Link のクライアントサイド認証処理ページです。
  * implicit flow（URL hash）・PKCE flow（code）・token_hash の全パターンに対応します。
+ * 認証後は window.location.href でハードナビゲーションし、Cookie をサーバーに確実に届けます。
  */
 export default function AuthConfirmPage() {
-  const router = useRouter();
   const [message, setMessage] = useState('認証中...');
 
   useEffect(() => {
@@ -25,56 +24,42 @@ export default function AuthConfirmPage() {
         const refresh_token = params.get('refresh_token');
 
         if (access_token && refresh_token) {
-          const { error } = await supabase.auth.setSession({ access_token, refresh_token });
-          if (!error) {
-            router.replace('/account');
-            return;
-          }
+          await supabase.auth.setSession({ access_token, refresh_token });
         }
       }
 
-      // ② PKCE flow: ?code=...（ブラウザクライアントで処理。サーバーへのリダイレクト不可）
+      // ② PKCE flow: ?code=...
       const url = new URL(window.location.href);
       const code = url.searchParams.get('code');
       if (code) {
-        const { error } = await supabase.auth.exchangeCodeForSession(code);
-        if (!error) {
-          router.replace('/account');
-          return;
-        }
-        setMessage('認証に失敗しました。もう一度お試しください。');
-        setTimeout(() => router.replace('/auth/login'), 2000);
-        return;
+        await supabase.auth.exchangeCodeForSession(code);
       }
 
       // ③ token_hash flow: ?token_hash=...&type=...
       const token_hash = url.searchParams.get('token_hash');
       const type = url.searchParams.get('type');
       if (token_hash && type) {
-        const { error } = await supabase.auth.verifyOtp({
+        await supabase.auth.verifyOtp({
           token_hash,
           type: type as 'email' | 'magiclink' | 'recovery' | 'invite',
         });
-        if (!error) {
-          router.replace('/account');
-          return;
-        }
       }
 
-      // ④ すでにセッションがある場合
+      // ④ セッション確認（ライブラリが自動処理した場合も含む）
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
-        router.replace('/account');
+        // ハードナビゲーションで Cookie をサーバーに確実に送る
+        window.location.href = '/account';
         return;
       }
 
       // どれも該当しない → エラー
       setMessage('認証に失敗しました。もう一度お試しください。');
-      setTimeout(() => router.replace('/auth/login'), 2000);
+      setTimeout(() => { window.location.href = '/auth/login'; }, 2000);
     }
 
     handleAuth();
-  }, [router]);
+  }, []);
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center">
