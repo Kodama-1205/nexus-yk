@@ -66,12 +66,12 @@ export default async function DifyDetailPage({ params }: DifyDetailPageProps) {
             </span>
           )}
         </div>
-        <h1 className="mt-4 text-3xl font-bold tracking-tight text-white break-keep sm:text-4xl">{item.title}</h1>
+        <h1 className="mt-4 text-3xl font-bold tracking-tight text-white [line-break:strict] sm:text-4xl">{item.title}</h1>
       </header>
 
       <section className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
         <h2 className="text-lg font-bold text-white">説明</h2>
-        <div className="mt-4 space-y-4 text-base leading-relaxed text-slate-100/90 break-keep">
+        <div className="mt-4 space-y-4 text-base leading-relaxed text-slate-100/90 [line-break:strict]">
           {item.description.split('\n\n').map((para, i) => (
             <p key={i}>{para}</p>
           ))}
