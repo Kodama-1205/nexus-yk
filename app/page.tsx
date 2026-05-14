@@ -22,8 +22,8 @@ export default async function HomePage() {
           subtitle={SITE_DESCRIPTION}
           primaryHref="/apps"
           primaryLabel="アプリ一覧を見る"
-          secondaryHref="/marketplace"
-          secondaryLabel="Marketplace（準備中）"
+          secondaryHref="/dify"
+          secondaryLabel="Dify ファイル一覧を見る"
         />
       </div>
 
