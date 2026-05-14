@@ -14,4 +14,10 @@ export const SITE_DESCRIPTION =
 export const OWNER_GITHUB_URL = 'https://github.com/Kodama-1205';
 
 /** お問い合わせフォーム URL */
-export const CONTACT_FORM_URL = 'https://forms.gle/m4FjvhydkcpAMuyH8';
+export const CONTACT_FORM_URL = 'https://docs.google.com/forms/d/1DnLN40VvNvkBhfhlrpXAmqzPWFzZ0L-qF2cov8Z_oiY/viewform';
+
+/** X（旧 Twitter）プロフィール URL */
+export const OWNER_X_URL = 'https://x.com/yWqOTmHnZE13786';
+
+/** note プロフィール URL */
+export const OWNER_NOTE_URL = 'https://note.com/yuki_dify';

@@ -1,11 +1,8 @@
 import Link from 'next/link';
 
-import { CONTACT_FORM_URL, OWNER_GITHUB_URL, SITE_NAME } from '@/lib/site';
+import { CONTACT_FORM_URL, OWNER_GITHUB_URL, OWNER_NOTE_URL, OWNER_X_URL, SITE_NAME } from '@/lib/site';
 
-/**
- * 共通フッターです。
- * SNS の具体 URL は依頼資料からは確定できないため、GitHub のみリンクし SNS は注記に留めます。
- */
+/** 共通フッターです。 */
 export function Footer() {
   const year = new Date().getFullYear();
 
@@ -18,20 +15,35 @@ export function Footer() {
             <p className="mt-2 text-base leading-relaxed text-slate-200/90">
               個人開発アプリの紹介と、今後追加予定のマーケットプレイス（準備中）をまとめるサイトです。
             </p>
-            <p className="mt-3 text-sm leading-relaxed text-slate-300/90">
-              SNS リンクは準備中です。
-            </p>
           </div>
 
           <div className="flex flex-col gap-3 sm:items-end">
-            <Link
-              href={OWNER_GITHUB_URL}
-              className="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-base font-semibold text-white backdrop-blur transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              GitHub（Kodama-1205）
-            </Link>
+            <div className="flex flex-wrap gap-2 sm:justify-end">
+              <a
+                href={OWNER_GITHUB_URL}
+                className="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-base font-semibold text-white backdrop-blur transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                GitHub
+              </a>
+              <a
+                href={OWNER_X_URL}
+                className="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-base font-semibold text-white backdrop-blur transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                X
+              </a>
+              <a
+                href={OWNER_NOTE_URL}
+                className="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-base font-semibold text-white backdrop-blur transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                note
+              </a>
+            </div>
 
             <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-200/90 sm:justify-end">
               <Link className="underline-offset-4 hover:underline" href="/legal/terms">
