@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-import { getAllApps, getAppBySlug } from '@/lib/apps-data';
+import { getAppBySlug } from '@/lib/apps-data';
 import { SITE_NAME } from '@/lib/site';
 import type { AppStatus } from '@/lib/types';
 
@@ -14,12 +14,6 @@ const STATUS_EN: Record<AppStatus, string> = {
   ベータ: 'Beta',
   準備中: 'Coming Soon',
 };
-
-/** SSG: 有効な slug を事前列挙 */
-export async function generateStaticParams() {
-  const apps = await getAllApps();
-  return apps.map((app) => ({ slug: app.slug }));
-}
 
 type Props = {
   params: { slug: string };
