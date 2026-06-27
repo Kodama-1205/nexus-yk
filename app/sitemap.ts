@@ -3,6 +3,8 @@ import type { MetadataRoute } from 'next';
 import { getAllApps } from '@/lib/apps-data';
 import { getAllDifyItems } from '@/lib/dify-data';
 
+export const dynamic = 'force-dynamic';
+
 const BASE_URL = 'https://nexus-yk.vercel.app';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
