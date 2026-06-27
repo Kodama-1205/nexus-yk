@@ -11,10 +11,14 @@ type AppDetailPageProps = {
   params: { slug: string };
 };
 
-/** 事前生成対象の slug 一覧です（SSG）。 */
+/** 事前生成対象の slug 一覧です（SSG）。Supabase が使えない場合は空を返して動的生成にフォールバック。 */
 export async function generateStaticParams() {
-  const apps = await getAllApps();
-  return apps.map((app) => ({ slug: app.slug }));
+  try {
+    const apps = await getAllApps();
+    return apps.map((app) => ({ slug: app.slug }));
+  } catch {
+    return [];
+  }
 }
 
 /** 詳細ページのメタデータです。 */
