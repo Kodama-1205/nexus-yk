@@ -4,7 +4,6 @@ import { getAppBySlug } from '@/lib/apps-data';
 import { SITE_NAME } from '@/lib/site';
 import type { AppStatus } from '@/lib/types';
 
-export const runtime = 'edge';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
