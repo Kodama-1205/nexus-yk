@@ -45,6 +45,37 @@ const apps: AppItem[] = [
     publishedAt: '2024-01-01T00:00:00.000Z', // TODO: 依頼者確認待ち（正確な公開日が不明）
   },
   {
+    slug: 'ask-design',
+    name: 'Ask Design',
+    shortDescription:
+      '目的と前提を入れるだけで、そのまま使える完成プロンプト（質問文）を生成する Web アプリ。',
+    longDescription: [
+      'Ask Design は、AI に「聞けばわかる」を設計するための Web アプリです（リポジトリ README の説明に基づく）。',
+      'README によると、ユーザーの目的・状況・スタイルに応じて最適な質問文（プロンプト）を生成します。',
+      '公開サイトの説明では、目的と前提を入れるだけで完成プロンプトを作成し、スキルレベルや使用ツールを反映して最適化する、と記載されています。',
+      '公開サイトでは生成結果を Markdown で表示し、ワンクリックでコピーできる導線がある、と記載されています。',
+      'README の Tech Stack には Next.js（App Router）、TypeScript、Tailwind CSS、Dify（API）が記載されています。package.json 上ではさらに Supabase、Prisma、Upstash、react-markdown 等の依存も確認できます。',
+    ].join('\n\n'),
+    category: 'AIワークフロー',
+    techStack: [
+      'Next.js',
+      'React',
+      'TypeScript',
+      'Tailwind CSS',
+      'Dify',
+      'Supabase',
+      'Prisma',
+      'Upstash',
+      'react-markdown',
+    ],
+    liveUrl: 'https://ask-design-app.vercel.app/',
+    githubUrl: 'https://github.com/Kodama-1205/ask-design-app',
+    screenshot: '/apps/ask-design.svg',
+    status: '公開',
+    // 正確な初回公開日はリポジトリ情報からは確認できなかったため、依頼者確認用の TODO を残します
+    publishedAt: '2024-01-01T00:00:00.000Z', // TODO: 依頼者確認待ち（正確な公開日が不明）
+  },
+  {
     slug: 'text2flow',
     name: 'Text2Flow',
     shortDescription:
