@@ -7,7 +7,8 @@ import type { AppItem } from './types';
 
 /**
  * 掲載アプリのマスターデータです。
- * README / package.json から確認できた事実のみ記載し、推測で埋めた項目は入れていません。
+ * README / package.json / 公開ページの metadata から確認できた事実のみ記載し、
+ * 推測で埋めた項目は入れていません。
  */
 const apps: AppItem[] = [
   {
@@ -62,6 +63,27 @@ const apps: AppItem[] = [
     screenshot: '/apps/text2flow.svg',
     status: '公開',
     // README から正確な初回公開日は確認できなかったため、依頼者確認用の TODO を残します
+    publishedAt: '2024-01-01T00:00:00.000Z', // TODO: 依頼者確認待ち（正確な公開日が不明）
+  },
+  {
+    slug: 'ai-task-fit',
+    name: 'AI Task Fit',
+    shortDescription:
+      'YES/NO だけで業務の自動化可否を診断し、最短の実装方針（Python / Dify / 手作業）を提示する Web アプリ。',
+    longDescription: [
+      'AI Task Fit は、業務自動化の可否診断を目的とした Web アプリです。',
+      '公開ページの metadata によると、YES/NO だけで業務の自動化可否を診断し、最短の実装方針（Python / Dify / 手作業）を提示します。',
+      '公開サイトの説明では、反復性・ルール化・例外・リスク・データ取り出し可否などの軸で診断し、現状ツール環境を踏まえた推奨ルート（主＋副）を返す、と記載されています。',
+      'リポジトリ構成上、`/input`・`/diagnosis`・`/result` などのルートが確認できます（README はリポジトリ上で未確認でした）。',
+      'package.json から確認できた依存関係は Next.js / React / TypeScript です（Tailwind 等の追加依存は package.json 上では確認できませんでした）。',
+    ].join('\n\n'),
+    category: 'AIワークフロー',
+    techStack: ['Next.js', 'React', 'TypeScript'],
+    liveUrl: 'https://ai-task-fit.vercel.app/',
+    githubUrl: 'https://github.com/Kodama-1205/ai-task-fit',
+    screenshot: '/apps/ai-task-fit.svg',
+    status: '公開',
+    // 正確な初回公開日はリポジトリ情報からは確認できなかったため、依頼者確認用の TODO を残します
     publishedAt: '2024-01-01T00:00:00.000Z', // TODO: 依頼者確認待ち（正確な公開日が不明）
   },
 ];
