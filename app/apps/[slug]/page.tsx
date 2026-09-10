@@ -101,9 +101,9 @@ export default function AppDetailPage({ params }: AppDetailPageProps) {
         <div className="relative aspect-[16/9] w-full bg-slate-950/40">
           <Image
             src={app.screenshot}
-            alt={`${app.name} のスクリーンショット（プレースホルダ）`}
+            alt={`${app.name} のスクリーンショット`}
             fill
-            className="object-cover"
+            className="object-cover object-top"
             sizes="(min-width: 1024px) 1100px, 100vw"
             unoptimized
             priority

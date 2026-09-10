@@ -23,14 +23,15 @@ export function AppCard({ app }: AppCardProps) {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
         <div className="relative mx-auto h-40 w-full max-w-[360px] overflow-hidden rounded-xl border border-white/10 bg-slate-950/40 sm:mx-0 sm:h-36 sm:w-44 sm:max-w-none sm:flex-none">
           {/*
-            SVG プレースホルダは最適化対象外として `unoptimized` を付与します。
-            将来 PNG 等に差し替える場合は `next.config.mjs` の画像設定と合わせて見直します。
+            `public/apps/` 配下の実画面キャプチャ（PNG）を表示します。
+            ローカル静的ファイルのため最適化の有無はどちらでも動作しますが、
+            サイズと表示の安定性を優先して unoptimized を付けています。
           */}
           <Image
             src={app.screenshot}
-            alt={`${app.name} のスクリーンショット（プレースホルダ）`}
+            alt={`${app.name} のスクリーンショット`}
             fill
-            className="object-cover"
+            className="object-cover object-top"
             sizes="(min-width: 640px) 176px, 100vw"
             unoptimized
             priority={false}

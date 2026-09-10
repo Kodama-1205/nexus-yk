@@ -39,7 +39,7 @@ const apps: AppItem[] = [
     ],
     liveUrl: 'https://design2code-studio.vercel.app/',
     githubUrl: 'https://github.com/Kodama-1205/design2code-studio',
-    screenshot: '/apps/design2code-studio.svg',
+    screenshot: '/apps/design2code-studio.png',
     status: '公開',
     // README から正確な初回公開日は確認できなかったため、依頼者確認用の TODO を残します
     publishedAt: '2024-01-01T00:00:00.000Z', // TODO: 依頼者確認待ち（正確な公開日が不明）
@@ -70,7 +70,7 @@ const apps: AppItem[] = [
     ],
     liveUrl: 'https://ask-design-app.vercel.app/',
     githubUrl: 'https://github.com/Kodama-1205/ask-design-app',
-    screenshot: '/apps/ask-design.svg',
+    screenshot: '/apps/ask-design.png',
     status: '公開',
     // 正確な初回公開日はリポジトリ情報からは確認できなかったため、依頼者確認用の TODO を残します
     publishedAt: '2024-01-01T00:00:00.000Z', // TODO: 依頼者確認待ち（正確な公開日が不明）
@@ -91,7 +91,7 @@ const apps: AppItem[] = [
     techStack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Supabase', 'Mermaid'],
     liveUrl: 'https://text2flow.vercel.app/',
     githubUrl: 'https://github.com/Kodama-1205/text2flow',
-    screenshot: '/apps/text2flow.svg',
+    screenshot: '/apps/text2flow.png',
     status: '公開',
     // README から正確な初回公開日は確認できなかったため、依頼者確認用の TODO を残します
     publishedAt: '2024-01-01T00:00:00.000Z', // TODO: 依頼者確認待ち（正確な公開日が不明）
@@ -112,7 +112,7 @@ const apps: AppItem[] = [
     techStack: ['Next.js', 'React', 'TypeScript'],
     liveUrl: 'https://ai-task-fit.vercel.app/',
     githubUrl: 'https://github.com/Kodama-1205/ai-task-fit',
-    screenshot: '/apps/ai-task-fit.svg',
+    screenshot: '/apps/ai-task-fit.png',
     status: '公開',
     // 正確な初回公開日はリポジトリ情報からは確認できなかったため、依頼者確認用の TODO を残します
     publishedAt: '2024-01-01T00:00:00.000Z', // TODO: 依頼者確認待ち（正確な公開日が不明）
