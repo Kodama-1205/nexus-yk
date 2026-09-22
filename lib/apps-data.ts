@@ -22,7 +22,7 @@ const apps: AppItem[] = [
       'また Supabase が利用できない場合でも、生成・プレビュー・ZIP 出力は利用できるデモモードが README に記載されています。',
       '本ポートフォリオサイトでは README の範囲で要約しており、画面構成の細部や将来の仕様変更については各リポジトリの最新情報を優先してください。',
     ].join('\n\n'),
-    category: 'デザイン変換',
+    category: 'その他',
     techStack: [
       'Next.js',
       'React',
